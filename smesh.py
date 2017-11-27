@@ -50,7 +50,9 @@ class SMesh (Mesh.Mesh):
     def getVertex(self, i):
         """
         The index here is uuid, not int -> check
-        spoint.data -> metadata; how to map this to mupif?
+        Q: spoint.data -> metadata; how to map this to mupif?
+        Q: return copy or reference (wrapper class for Point)?
+        
         """
         spoint = self.smesh._get_point(self._vertexUUIDMap[i])
         return Vertex.Vertex(i, i, coords=spoint.coordinates)
@@ -87,7 +89,20 @@ class SMesh (Mesh.Mesh):
             return cell
         else:
             raise KeyError('cell id not found')
-                
+
+
+    def giveVertexLocalizer(self):
+        return None
+    def giveCellLocalizer(self):
+        return None
+    def vertexLabel2Number(self, label):
+        pass
+    def cellLabel2Number(self, label):
+        pass
+
+    #
+    # protected methods
+    #
     def _EdgeElement(self, nn):
          """
          Return mupif cell class corresponding to edge with given number of nodes
